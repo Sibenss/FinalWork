@@ -33,6 +33,27 @@ def generar_informe_gastos():
         porcentaje = (monto / total_gastos) * 100
         print(f"{categoria}: ${monto:.2f} ({porcentaje:.2f}%)")
     print(f"Total de gastos: ${total_gastos:.2f}")
+    
+# Función borrar gastos
+def borrar_gastos():
+    fecha_inicio = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
+    fecha_fin = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
+
+    gastos_borrados = 0
+    with open('gastos.csv', 'r') as archivo_csv:
+        lector_csv = csv.reader(archivo_csv)
+        filas = list(lector_csv)
+        for fila in filas:
+            fecha_gasto = datetime.strptime(fila[0], "%Y-%m-%d %H:%M:%S").date()
+            if fecha_inicio <= str(fecha_gasto) <= fecha_fin:
+                filas.remove(fila)
+                gastos_borrados += 1
+
+    with open('gastos.csv', 'w', newline='') as archivo_csv:
+        escritor_csv = csv.writer(archivo_csv)
+        escritor_csv.writerows(filas)
+
+    print(f"Se han borrado {gastos_borrados} gastos.")
 
 # menu app
 def menu():
