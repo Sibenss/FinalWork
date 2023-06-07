@@ -54,6 +54,17 @@ def borrar_gastos():
         escritor_csv.writerows(filas)
 
     print(f"Se han borrado {gastos_borrados} gastos.")
+    
+ # Función de autenticación de usuario
+def autenticar_usuario():
+    while True:
+        nombre_usuario = input("Ingrese su nombre de usuario: ")
+        contraseña = input("Ingrese su contraseña: ")
+
+        if nombre_usuario in usuarios and usuarios[nombre_usuario] == contraseña:
+            return True
+        else:
+            print("Credenciales inválidas. Intente nuevamente.")
 
 # menu app
 def menu():
